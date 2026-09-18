@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What We Do</title>
+<meta name="description" content="Encik Beku services and their details — aircond, electrical, CCTV, renovation and waterproofing.">
+<link rel="stylesheet" href="../fonts/fonts.css?v=mu4zmonw">
+<link rel="stylesheet" href="../tokens/tokens.css?v=mu4zmonw">
+<link rel="stylesheet" href="site.css?v=mu4zmonw">
+<link rel="icon" href="../svg/mark/encik-beku-mark-navy.svg">
+<style>
+  .sv-vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .sv-body [hidden] { display: none !important; }
+
+  /* Sized like the Who we are band. On a section change the script parks the
+     outgoing photo on the background and fades the new one in over it, so the
+     band never flashes its Tech Blue fill between photos. */
+  .sv-hero {
+    position: relative; display: grid; place-items: center;
+    min-height: clamp(17rem, 30vw, 28rem); padding: var(--eb-space-8) 0; overflow: hidden;
+    background: var(--eb-bg-brand) center / cover no-repeat;
+  }
+  .sv-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  /* Who we are's flat 30% #035CC2, as its own layer: the photo's opacity is the
+     crossfade, so fading the photo would tint it with the outgoing photo. */
+  .sv-hero::after { content: ""; position: absolute; inset: 0; background: color-mix(in srgb, var(--eb-bg-brand) 30%, transparent); }
+  .sv-hero-title {
+    position: relative; z-index: 1;   /* above the tint */
+    margin: 0; padding-inline: var(--eb-space-4); text-align: center; text-transform: uppercase;
+    font-size: clamp(2rem, 4.4vw, 3.25rem); font-weight: var(--eb-fw-black); line-height: var(--eb-leading-tight);
+    letter-spacing: var(--eb-tracking-tight); color: var(--eb-fg-on-brand);
+  }
+
+  /* Full-bleed tint without touching <main>: the site preview merges every page's CSS into one sheet. */
+  .sv-body { padding: var(--eb-space-6) 0 var(--eb-space-9); box-shadow: 0 0 0 100vmax var(--eb-bg-tint); clip-path: inset(0 -100vmax); background: var(--eb-bg-tint); }
+
+  .sv-body { display: grid; grid-template-columns: 14rem minmax(0, 1fr); gap: var(--eb-space-6); align-items: start; }
+
+  .sv-ico { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+  .sv-tabs { display: flex; flex-direction: column; gap: 0.125rem; }
+  .sv-menu { margin: 0 0 var(--eb-space-2); padding-inline: 0.75rem; font-size: var(--eb-text-xs); color: var(--eb-blue-700); }
+  .sv-tabs button {
+    display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.6rem 0.75rem;
+    border: 0; border-radius: var(--eb-radius-sm); background: none;
+    color: var(--eb-fg-1); font: inherit; font-size: var(--eb-text-sm); text-align: left; cursor: pointer;
+  }
+  .sv-tabs button:hover { background: color-mix(in srgb, var(--eb-bg-1) 55%, transparent); }
+  .sv-tabs button[aria-pressed="true"] { background: var(--eb-bg-1); box-shadow: var(--eb-shadow-sm); }
+  .sv-tabs .sv-ico { width: 1.125rem; height: 1.125rem; }
+
+  .sv-card { background: var(--eb-bg-1); border-radius: var(--eb-radius-lg); padding: var(--eb-space-5); }
+
+  .sv-filters { display: flex; flex-wrap: wrap; gap: var(--eb-space-3) var(--eb-space-4); margin-bottom: var(--eb-space-5); }
+  /* The fields are sized so the whole row still fits beside the two buttons on
+     a 1280 laptop. English labels are wider than the Chinese ones, and at the
+     old 16rem the buttons dropped to a line of their own in English while
+     sitting on the row in Chinese. The search box takes up any slack left. */
+  .sv-field { position: relative; display: flex; align-items: center; gap: var(--eb-space-4); min-width: 0; }
+  .sv-field:first-child { flex: 1 1 auto; }          /* the search box takes the slack */
+  .sv-field:first-child input { width: 100%; }
+  .sv-field label { font-size: var(--eb-text-sm); font-weight: var(--eb-fw-bold); white-space: nowrap; }
+  .sv-field input, .sv-field select {
+    appearance: none; width: 10rem; min-width: 7rem; height: 2.5rem; padding: 0 1rem;
+    border: 1px solid var(--eb-border-1); border-radius: var(--eb-radius-xs);
+    background: var(--eb-bg-1); color: var(--eb-fg-1); font: inherit; font-size: var(--eb-text-sm);
+  }
+  .sv-field input::placeholder { color: var(--eb-fg-3); }
+  /* 10.5rem is "All Service Types" plus the chevron, to the pixel */
+  .sv-field select { width: 10.5rem; padding-right: 2.5rem; cursor: pointer; }
+  .sv-field .sv-ico {
+    position: absolute; right: 0.9rem; bottom: 1.25rem; width: 1rem; height: 1rem; transform: translateY(50%); pointer-events: none;
+    stroke: var(--eb-fg-3); stroke-width: 2.2;
+  }
+
+  .sv-table { width: 100%; min-width: 0; border-collapse: separate; border-spacing: 0; font-size: var(--eb-text-sm); line-height: 1.35; }
+  .sv-table thead th {
+    padding: 0.95rem 1.25rem; background: var(--eb-bg-tint); color: var(--eb-blue-700);
+    font-size: var(--eb-text-sm); font-weight: var(--eb-fw-bold); letter-spacing: normal; text-transform: none; white-space: normal;
+  }
+  .sv-table thead th:first-child { width: 25%; border-radius: var(--eb-radius-sm) 0 0 var(--eb-radius-sm); }
+  .sv-table thead th:nth-child(2) { width: 30%; }
+  .sv-table thead th:last-child { border-radius: 0 var(--eb-radius-sm) var(--eb-radius-sm) 0; }
+  .sv-table tbody tr { background: none; }
+  .sv-table tbody tr :is(th, td) {
+    padding: 0.9rem 1.25rem; border-bottom: 1px solid color-mix(in srgb, var(--eb-border-1) 70%, var(--eb-bg-1));
+    text-align: left; vertical-align: middle; white-space: normal; color: var(--eb-fg-1); font-weight: var(--eb-fw-medium);
+  }
+  .sv-table tbody tr th { font-weight: var(--eb-fw-bold); }
+
+  .sv-acts { display: flex; align-items: center; gap: var(--eb-space-3); margin-inline-start: auto; }
+
+  .sv-empty { margin: 0; padding: var(--eb-space-6); text-align: center; color: var(--eb-fg-2); }
+  .sv-note { margin: var(--eb-space-4) 0 0; font-size: var(--eb-text-sm); color: var(--eb-fg-2); }
+
+  /* ── Catalogue viewer ───────────────────────────────────────────
+     Only one leaf is ever in the air, and a turn shows four pages at most:
+     the one being covered, the leaf's two faces, and the one being revealed.
+     So the book is three elements — two page slots and one reusable leaf
+     above them — rather than 34 stacked sheets. Nothing writes a z-index
+     mid-turn and only four images are ever decoded. */
+  .cb {
+    --cb-page: 0.707;                /* 595.5 / 842.25 — the catalogue's page */
+    --cb-cols: 2;
+    --cb-chrome: 8.5rem;             /* the bar above and the controls below */
+    --cb-gut: var(--eb-space-5);
+    /* Mid-turn the leaf's outer edge is a page-width nearer the eye, so it
+       draws about 17% taller than the page. Reserve that or the turn is
+       clipped at the moment it is most visible. */
+    --cb-bulge: 1.17;
+    --cb-h: min(calc((100svh - var(--cb-chrome)) / var(--cb-bulge)),
+                calc((100vw - 2 * var(--cb-gut)) / (var(--cb-cols) * var(--cb-page))),
+                900px);
+    --cb-w: calc(var(--cb-h) * var(--cb-page));
+    width: 100vw; max-width: none; height: 100svh; max-height: none;
+    margin: 0; padding: 0; border: 0;
+    /* The scrim is the dialog itself: ::backdrop does not inherit custom
+       properties everywhere, so a token can resolve to nothing there. */
+    background: color-mix(in srgb, var(--eb-bg-brand-deep) 94%, transparent);
+    color: var(--eb-fg-on-brand); overscroll-behavior: contain;
+  }
+  .cb::backdrop { background: none; }
+  .cb[open] { display: grid; grid-template-rows: auto 1fr auto; }
+  .cb-bar, .cb-nav { display: flex; align-items: center; gap: var(--eb-space-3); padding: var(--eb-space-3) var(--eb-space-5); }
+  .cb-bar { border-bottom: 1px solid var(--eb-border-on-brand); }
+  .cb-nav { justify-content: center; border-top: 1px solid var(--eb-border-on-brand); }
+  .cb-title { margin: 0; font-weight: var(--eb-fw-bold); }
+  .cb-count { margin: 0 var(--eb-space-3) 0 auto; font-size: var(--eb-text-sm); color: var(--eb-fg-on-brand-muted); }
+  .cb-x { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 0; background: none; color: inherit; cursor: pointer; }
+  .cb-x svg { width: 1.25rem; height: 1.25rem; stroke-width: 2; }
+  .cb-stage { display: grid; place-items: center; min-height: 0; padding: 0 var(--cb-gut); }
+  /* Perspective belongs to the book, but the book keeps no 3D context of its
+     own: each child is flattened into it separately, so the turning leaf can
+     never sink into the pages underneath and z-index alone decides the order. */
+  .cb-book {
+    position: relative; perspective: calc(var(--cb-w) * 7);
+    width: calc(var(--cb-cols) * var(--cb-w)); height: var(--cb-h);
+    box-shadow: var(--eb-shadow-lg); cursor: pointer;
+    touch-action: pan-y pinch-zoom;   /* never none: that kills pinch zoom */
+  }
+  .cb-pg { position: absolute; top: 0; width: var(--cb-w); height: var(--cb-h); object-fit: fill; background: var(--eb-bg-1); }
+  .cb-l { left: 0; }
+  .cb-r { left: var(--cb-w); }
+  /* No overflow, opacity, filter or clip here: each of those would compute
+     transform-style back to flat and the leaf would turn into a mirrored
+     rectangle. */
+  .cb-leaf {
+    position: absolute; top: 0; left: var(--cb-w); z-index: 2;
+    width: var(--cb-w); height: var(--cb-h); visibility: hidden;
+    transform-origin: left center; transform-style: preserve-3d;
+  }
+  .cb-leaf.cb-rev { left: 0; transform-origin: right center; }
+  .cb-face {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill;
+    background: var(--eb-bg-1); backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  }
+  .cb-back { transform: rotateY(180deg); }   /* so it reads upright, not mirrored, at -180° */
+
+  /* No room for a sidebar beside the table: the menu becomes a swipeable row above the card. */
+  @media (max-width: 1024px) {
+    .sv-body { grid-template-columns: minmax(0, 1fr); gap: var(--eb-space-3); }
+    .sv-menu { display: none; }
+    .sv-tabs {
+      flex-direction: row; overflow-x: auto; padding-block: 0.25rem 0.5rem;
+      margin-inline: calc(var(--eb-space-6) / -2); padding-inline: calc(var(--eb-space-6) / 2);
+    }
+    .sv-tabs button { flex: none; width: auto; white-space: nowrap; }
+  }
+
+  @media (max-width: 760px) {
+    .sv-card { padding: var(--eb-space-4); }
+    .sv-field { flex: 1 1 100%; flex-direction: column; align-items: stretch; gap: var(--eb-space-2); }
+    .sv-field input, .sv-field select { width: 100%; }
+    /* .btn ships flex-shrink: 0, so the pair needs a flex-basis to share the row,
+       and a wrap so they stack instead of overflowing on a narrow phone. */
+    .sv-acts { flex: 1 1 100%; flex-wrap: wrap; margin-inline-start: 0; }
+    .sv-acts .btn { flex: 1 1 9rem; }
+    /* One page at a time, and the leaf turns away over the whole width. Its
+       back face stays hidden: past 90° the leaf is swinging off the left of a
+       single-page book, and a page sliding away out there reads as a mistake. */
+    .cb { --cb-cols: 1; --cb-chrome: 7.5rem; --cb-gut: var(--eb-space-3); }
+    .cb-r, .cb-back { display: none; }
+    .cb-leaf { left: 0; width: var(--cb-w); }
+    .cb-bar, .cb-nav { padding: var(--eb-space-2) var(--eb-space-3); }
+    .cb-title { display: none; }      /* no room beside the count and controls */
+    .cb-count { margin-inline-start: 0; }
+    .sv-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    .sv-table, .sv-table tbody, .sv-table tr, .sv-table th, .sv-table td { display: block; width: auto; }
+    .sv-table tbody { padding: 0.5rem 0 0.9rem; border-bottom: 1px solid color-mix(in srgb, var(--eb-border-1) 70%, var(--eb-bg-1)); }
+    .sv-table tbody tr :is(th, td) { padding: 0; border: 0; }
+    .sv-table tbody th { padding: 0.4rem 0 0.2rem; }
+    .sv-table tbody td:nth-last-child(2) { padding-top: 0.5rem; }
+    .sv-table tbody td:last-child { color: var(--eb-fg-2); }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="sv-aircond"><path d="M12 2.5v19M3.77 7.25l16.46 9.5M3.77 16.75l16.46-9.5M9.53 4.53 12 7l2.47-2.47M9.53 19.47 12 17l2.47 2.47M6.77 6.12l.9 3.38-3.38.9M17.23 6.12l-.9 3.38 3.38.9M6.77 17.88l.9-3.38-3.38-.9M17.23 17.88l-.9-3.38 3.38-.9"/></g>
+  <g id="sv-electrical"><path d="M13 2.5 5 13.5h6l-1 8 8-11h-6z"/></g>
+  <g id="sv-cctv"><path d="M3 8.5 16 5l1.6 6-13 3.5zM16 5l3-.8 1.6 6-3 .8M11 12.8l1 4.7H4.5M4.5 15v5"/></g>
+  <g id="sv-cabinet"><path d="M2.5 6.5h19"/><rect x="4" y="6.5" width="16" height="14" rx="1"/><path d="M12 6.5v14M10 11v2.5M14 11v2.5"/></g>
+  <g id="sv-roller"><rect x="3" y="3.5" width="15" height="5.5" rx="1.5"/><path d="M18 6.25h2.5v5.25H11V15M9.5 15h3v6h-3z"/></g>
+  <g id="sv-ceiling"><path d="M2.5 4h19M2.5 4v4.5a2 2 0 0 0 2 2h15a2 2 0 0 0 2-2V4M9.5 10.5v1.5h5v-1.5M12 15v2.5M7.5 14.5l-1.5 2M16.5 14.5l1.5 2"/></g>
+  <g id="sv-partition"><path d="M2.5 20.5h19M4 20.5V3.5h16v17M11 20.5V9h6v11.5M15 15h.01"/></g>
+  <g id="sv-tap"><path d="M3.5 9h9.5a4 4 0 0 1 4 4v1.5M3.5 6.5v5M8.5 9V5.5M6 5.5h5M17 18c.8 1 1.2 1.6 1.2 2.2a1.2 1.2 0 0 1-2.4 0c0-.6.4-1.2 1.2-2.2z"/></g>
+  <g id="sv-grille"><rect x="3.5" y="3.5" width="17" height="17" rx="1.5"/><path d="M3.5 8h17M3.5 12h17M3.5 16h17"/></g>
+  <g id="sv-panel"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M8 6v12M12 6v12M16 6v12"/></g>
+  <g id="sv-decking"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 9.33h18M3 14.67h18M10 4v5.33M15 9.33v5.34M8 14.67V20"/></g>
+  <g id="sv-drop"><path d="M12 3c3.6 4.3 6 7.6 6 10.5a6 6 0 0 1-12 0C6 10.6 8.4 7.3 12 3z"/></g>
+  <g id="sv-down"><path d="m6 9 6 6 6-6"/></g>
+  <g id="i-dl" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 5-5m-5 5-5-5M4 19h16"/></g>
+</defs></svg>
+
+
+<header class="site">
+  <div class="wrap nav">
+    <nav>
+      <a href="about.html" data-i18n="nav.about">Who we are</a>
+      <a href="brand.html" data-i18n="nav.brand">Our brand</a>
+      <a href="services.html" aria-current="page" data-i18n="nav.services">What we do</a>
+    </nav>
+    <a class="brand" href="index.html" aria-label="Encik Beku"><img class="logo" src="../svg/logo/encik-beku-secondary-light.svg" alt="Encik Beku"></a>
+    <div class="langs" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button><span class="sep">|</span><button type="button" data-lang="ms" aria-pressed="false">Bahasa</button><span class="sep">|</span><button type="button" data-lang="zh" aria-pressed="false">中文</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<h1 class="sv-vh">What we do</h1>
+
+<div class="sv-hero">
+  <img src="img/services-hero-aircond.jpg" alt="" width="1920" height="960">
+  <p class="sv-hero-title">Aircond</p>
+</div>
+
+<div class="wrap sv-body">
+  <div class="sv-tabs" role="group" aria-labelledby="sv-menu">
+    <p class="sv-menu" id="sv-menu">Services</p>
+    <button type="button" data-tab="aircond" aria-pressed="true"><svg class="sv-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#sv-aircond"/></svg>Aircond</button>
+    <button type="button" data-tab="wiring" aria-pressed="false"><svg class="sv-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#sv-electrical"/></svg>Wiring</button>
+    <button type="button" data-tab="cctv" aria-pressed="false"><svg class="sv-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#sv-cctv"/></svg>CCTV</button>
+    <button type="button" data-tab="waterproofing" aria-pressed="false"><svg class="sv-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#sv-drop"/></svg>Waterproofing</button>
+    <button type="button" data-tab="cabinet" aria-pressed="false"><svg class="sv-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#sv-cabinet"/></svg>Cabinet &amp; Wardrobe</button>
+    <button type="button" data-tab="painting" aria-pressed="false"><svg class="sv-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#sv-roller"/></svg>Painting</button>
+    <button type="button" data-tab="ceiling" aria-pressed="false"><svg class="sv-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#sv-ceiling"/></svg>Plaster Ceiling Works</button>
+    <button type="button" data-tab="partition" aria-pressed="false"><svg class="sv-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#sv-partition"/></svg>Partition</button>
+    <button type="button" data-tab="plumbing" aria-pressed="false"><svg class="sv-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#sv-tap"/></svg>Plumbing</button>
+    <button type="button" data-tab="grille" aria-pressed="false"><svg class="sv-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#sv-grille"/></svg>Invisible Grille</button>
+    <button type="button" data-tab="panel" aria-pressed="false"><svg class="sv-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#sv-panel"/></svg>Wall Panel</button>
+    <button type="button" data-tab="decking" aria-pressed="false"><svg class="sv-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#sv-decking"/></svg>Decking</button>
+  </div>
+
+  <div class="sv-card">
+  <div class="sv-filters">
+    <div class="sv-field">
+      <label for="sv-q">Service / Product</label>
+      <input id="sv-q" type="search" placeholder="Search services…" autocomplete="off">
+    </div>
+    <div class="sv-field">
+      <label for="sv-type">Service Type</label>
+      <select id="sv-type"><option value="">All Service Types</option></select>
+      <svg class="sv-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#sv-down"/></svg>
+    </div>
+    <div class="sv-acts">
+      <a class="btn btn-ghost btn-sm" id="cb-open" href="downloads/Encik-Beku-Service-Catalogue-2026-v1.0.pdf" target="_blank" rel="noopener" aria-haspopup="dialog"><span data-i18n="doc.preview.cat">Preview catalogue</span></a>
+      <a class="btn btn-primary btn-sm" href="downloads/Encik-Beku-Service-Catalogue-2026-v1.0.pdf" download><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dl"/></svg><span data-i18n="doc.download.cat">Download catalogue</span></a>
+    </div>
+  </div>
+
+  <table class="sv-table">
+    <caption class="sv-vh">Encik Beku services and details</caption>
+    <thead><tr><th scope="col">Service Category</th><th scope="col">Service / Product</th><th scope="col">Details</th></tr></thead>
+    <tbody data-tab="aircond">
+      <tr><th scope="rowgroup" rowspan="3">Wall Mounted</th><td>Wall-Mounted Aircond Installation</td><td>1.0 HP, 1.5 HP, 2.0 HP, 2.5 HP, 3.0 HP • Includes first 6 ft of piping</td></tr>
+      <tr><td>Supply + Install Aircond (Inverter)</td><td>1.0 HP, 1.5 HP, 2.0 HP, 2.5 HP • Daikin, Panasonic, Midea</td></tr>
+      <tr><td>Supply + Install Aircond (Non-Inverter)</td><td>1.0 HP, 1.5 HP, 2.0 HP, 2.5 HP, 3.0 HP • Daikin, Panasonic, Midea</td></tr>
+    </tbody>
+    <tbody data-tab="aircond">
+      <tr><th scope="rowgroup" rowspan="2">Cassette</th><td>Ceiling Cassette Installation</td><td>1.0 HP, 1.5 HP, 2.0 HP, 2.5 HP, 3.0 HP • Includes first 6 ft of piping</td></tr>
+      <tr><td>Supply + Install Ceiling Cassette Aircond</td><td>2.0 HP, 2.5 HP, 3.0 HP • Daikin, Panasonic, Midea</td></tr>
+    </tbody>
+    <tbody data-tab="aircond">
+      <tr><th scope="rowgroup" rowspan="2">Aircond Service</th><td>Wall-Mounted Aircond Service</td><td>Standard • Chemical • Overhaul</td></tr>
+      <tr><td>Cassette Aircond Service</td><td>Standard • Chemical • Overhaul</td></tr>
+    </tbody>
+    <tbody data-tab="aircond">
+      <tr><th scope="rowgroup" rowspan="1">Aircond Relocation</th><td>Aircond Relocation Service</td><td>Dismantling • Reinstallation • Overhaul • Transport 5–15 km • Transport 15–30 km</td></tr>
+    </tbody>
+    <tbody data-tab="aircond">
+      <tr><th scope="rowgroup" rowspan="1">Gas Top-Up</th><td>Aircond Gas Top-Up</td><td>1–3 HP / 4–5 HP • 10 PSI / 150 PSI</td></tr>
+    </tbody>
+    <tbody data-tab="aircond">
+      <tr><th scope="rowgroup" rowspan="5">Repair &amp; Others</th><td>Capacitor Replacement</td><td>Indoor / Outdoor</td></tr>
+      <tr><td>Check &amp; Troubleshoot</td><td>Aircond troubleshooting and inspection</td></tr>
+      <tr><td>New PC Board Installation</td><td>Depending on aircond brand</td></tr>
+      <tr><td>Aircond Inspection</td><td>General aircond checking</td></tr>
+      <tr><td>Site Visit</td><td>On-site inspection</td></tr>
+    </tbody>
+    <tbody data-tab="aircond">
+      <tr><th scope="rowgroup" rowspan="2">Trade-In</th><td>Indoor + Outdoor Unit Trade-In</td><td>Aircond trade-in</td></tr>
+      <tr><td>Outdoor Compressor Trade-In</td><td>Compressor trade-in</td></tr>
+    </tbody>
+    <tbody data-tab="aircond">
+      <tr><th scope="rowgroup" rowspan="2">Concealed Work</th><td>Brick Wall &amp; Cement Wall</td><td>Below 18 ft / Above 18 ft</td></tr>
+      <tr><td>Concrete Wall</td><td>Below 18 ft / Above 18 ft</td></tr>
+    </tbody>
+    <tbody data-tab="aircond">
+      <tr><th scope="rowgroup" rowspan="2">Aircond Remote</th><td>Universal Remote</td><td>Universal aircond remote control</td></tr>
+      <tr><td>Original Remote</td><td>Original aircond remote control</td></tr>
+    </tbody>
+    <tbody data-tab="wiring">
+      <tr><th scope="rowgroup" rowspan="2">Electrical Switch</th><td>New Switch Point Installation</td><td>From socket to new switch point • Below 18 ft</td></tr>
+      <tr><td>New Switch Point Installation from DB</td><td>From DB to new switch point • Below 18 ft</td></tr>
+    </tbody>
+    <tbody data-tab="wiring">
+      <tr><th scope="rowgroup" rowspan="3">Electrical DB Box</th><td>1-Row DB Box</td><td>Suitable for small houses</td></tr>
+      <tr><td>2-Row DB Box</td><td>Distribution board installation</td></tr>
+      <tr><td>3-Row DB Box</td><td>Distribution board installation</td></tr>
+    </tbody>
+    <tbody data-tab="wiring">
+      <tr><th scope="rowgroup" rowspan="7">MCB / RCCB / ELCB / SPD</th><td>Single Phase MCB</td><td>EPS brand</td></tr>
+      <tr><td>3 Phase MCB</td><td>EPS brand</td></tr>
+      <tr><td>Single Phase RCCB</td><td>EPS brand</td></tr>
+      <tr><td>3 Phase RCCB</td><td>EPS brand</td></tr>
+      <tr><td>Single Phase ELCB</td><td>EPS brand</td></tr>
+      <tr><td>3 Phase ELCB</td><td>EPS brand</td></tr>
+      <tr><td>SPD</td><td>EPS brand</td></tr>
+    </tbody>
+    <tbody data-tab="wiring">
+      <tr><th scope="rowgroup" rowspan="3">2.5 mm Wiring</th><td>Plug Loop Wiring Installation</td><td>From nearest point • Surface wiring • Below 18 ft</td></tr>
+      <tr><td>Plug to Direct DB Wiring</td><td>Surface wiring • Below 18 ft</td></tr>
+      <tr><td>Extra Wire</td><td>Additional wiring</td></tr>
+    </tbody>
+    <tbody data-tab="wiring">
+      <tr><th scope="rowgroup" rowspan="4">4 mm Wiring</th><td>Plug to Direct DB Wiring</td><td>Surface wiring • Below 18 ft</td></tr>
+      <tr><td>Aircond Point to Direct DB Wiring</td><td>Surface wiring • Below 18 ft</td></tr>
+      <tr><td>Water Heater Point to Direct DB Wiring</td><td>Surface wiring • Below 18 ft</td></tr>
+      <tr><td>Extra Wire</td><td>Additional wiring</td></tr>
+    </tbody>
+    <tbody data-tab="wiring">
+      <tr><th scope="rowgroup" rowspan="2">Switch Replacement</th><td>1–3 Gang Switch</td><td>On-off switch replacement</td></tr>
+      <tr><td>20A Aircond Switch</td><td>On-off switch replacement</td></tr>
+    </tbody>
+    <tbody data-tab="wiring">
+      <tr><th scope="rowgroup" rowspan="2">Meter</th><td>Timer Meter</td><td>Supply and installation</td></tr>
+      <tr><td>Split Meter</td><td>Supply and installation</td></tr>
+    </tbody>
+    <tbody data-tab="wiring">
+      <tr><th scope="rowgroup" rowspan="3">Water Heater</th><td>Labour + Panasonic Non-Pump</td><td>Water heater installation</td></tr>
+      <tr><td>Labour + Flexible Hose</td><td>Water heater installation</td></tr>
+      <tr><td>Remove Old Water Heater</td><td>Dismantling service</td></tr>
+    </tbody>
+    <tbody data-tab="wiring">
+      <tr><th scope="rowgroup" rowspan="2">Exhaust Fan</th><td>Installation Only</td><td>Exhaust fan installation</td></tr>
+      <tr><td>Installation + Supply 6-inch Fan</td><td>Includes 6-inch exhaust fan</td></tr>
+    </tbody>
+    <tbody data-tab="wiring">
+      <tr><th scope="rowgroup" rowspan="3">Ceiling Fan</th><td>Labour Only</td><td>Ceiling fan installation</td></tr>
+      <tr><td>Labour + Deka 5-Blade 56-inch Fan</td><td>Includes fan supply and installation</td></tr>
+      <tr><td>Dismantle Old Ceiling Fan</td><td>Removal service</td></tr>
+    </tbody>
+    <tbody data-tab="wiring">
+      <tr><th scope="rowgroup" rowspan="1">Wall Fan</th><td>Labour + Khind 16-inch Remote Fan</td><td>Includes wall fan supply and installation</td></tr>
+    </tbody>
+    <tbody data-tab="wiring">
+      <tr><th scope="rowgroup" rowspan="2">Fan Hook Installation</th><td>Concrete Ceiling</td><td>Fan hook installation</td></tr>
+      <tr><td>Plaster Ceiling</td><td>Fan hook installation</td></tr>
+    </tbody>
+    <tbody data-tab="wiring">
+      <tr><th scope="rowgroup" rowspan="1">Surface Light</th><td>Labour + 18W LED Light</td><td>Includes light supply and installation</td></tr>
+    </tbody>
+    <tbody data-tab="wiring">
+      <tr><th scope="rowgroup" rowspan="3">TV Bracket</th><td>Install Only</td><td>TV bracket installation</td></tr>
+      <tr><td>Supply + Install</td><td>Up to 60-inch TV</td></tr>
+      <tr><td>Supply + Install Adjustable Bracket</td><td>Up to 60-inch TV</td></tr>
+    </tbody>
+    <tbody data-tab="cctv">
+      <tr><th scope="rowgroup" rowspan="3">CCTV Package – 2-Way Audio</th><td>Supply + Install 4-Channel CCTV</td><td>1TB Hard Disk • 22" Monitor • Audio • Hikvision / Dahua</td></tr>
+      <tr><td>Supply + Install 8-Channel CCTV</td><td>1TB Hard Disk • 22" Monitor • Audio • Hikvision / Dahua</td></tr>
+      <tr><td>Supply + Install 16-Channel CCTV</td><td>1TB Hard Disk • 22" Monitor • Audio • Hikvision / Dahua</td></tr>
+    </tbody>
+    <tbody data-tab="cctv">
+      <tr><th scope="rowgroup" rowspan="4">CCTV Package – 1-Way Audio</th><td>Supply + Install 4-Channel CCTV</td><td>1TB Hard Disk • 22" Monitor • Audio • Hikvision / Dahua</td></tr>
+      <tr><td>Supply + Install 8-Channel CCTV</td><td>1TB Hard Disk • 22" Monitor • Audio • Hikvision / Dahua</td></tr>
+      <tr><td>Supply + Install 16-Channel CCTV</td><td>1TB Hard Disk • 22" Monitor • Audio • Hikvision / Dahua</td></tr>
+      <tr><td>Additional Wiring</td><td>Additional CCTV wiring</td></tr>
+    </tbody>
+    <tbody data-tab="cctv">
+      <tr><th scope="rowgroup" rowspan="2">CCTV Installation</th><td>CCTV Installation Only</td><td>Available for 1–3 units or 3+ units</td></tr>
+      <tr><td>CCTV Wiring to Plug Point</td><td>Wiring from CCTV to plug point</td></tr>
+    </tbody>
+    <tbody data-tab="cctv">
+      <tr><th scope="rowgroup" rowspan="4">Indoor Wireless CCTV</th><td>Supply + Install C300 / C302</td><td>Wireless CCTV + Plug Point • Near installation (&lt;40 ft)</td></tr>
+      <tr><td>Supply + Install C300 / C302</td><td>Wireless CCTV + Plug Point • Longer-distance installation</td></tr>
+      <tr><td>Supply + Install CW300</td><td>Wireless CCTV + Plug Point • Near installation (&lt;40 ft)</td></tr>
+      <tr><td>Supply + Install CW300</td><td>Wireless CCTV + Plug Point • Long-distance installation (&gt;40 ft)</td></tr>
+    </tbody>
+    <tbody data-tab="waterproofing">
+      <tr><th scope="rowgroup" rowspan="3">Toilet Waterproofing – Standard</th><td>Small Toilet</td><td>60 sq ft and below</td></tr>
+      <tr><td>Medium Toilet</td><td>60–100 sq ft</td></tr>
+      <tr><td>Large Toilet</td><td>Above 100 sq ft</td></tr>
+    </tbody>
+    <tbody data-tab="waterproofing">
+      <tr><th scope="rowgroup" rowspan="3">Toilet Waterproofing – Premium</th><td>Small Toilet</td><td>60 sq ft and below</td></tr>
+      <tr><td>Medium Toilet</td><td>60–100 sq ft</td></tr>
+      <tr><td>Large Toilet</td><td>Above 100 sq ft</td></tr>
+    </tbody>
+    <tbody data-tab="cabinet">
+      <tr><th scope="rowgroup" rowspan="1">Base Cabinet</th><td>Base Cabinet + Quartz Stone Table Top</td><td>Standard 6 ft package</td></tr>
+    </tbody>
+    <tbody data-tab="cabinet">
+      <tr><th scope="rowgroup" rowspan="4">Base Cabinet – Add-On</th><td>Hole Opening + Sink Installation</td><td>Add-on service</td></tr>
+      <tr><td>Hole Opening + Cooking Stove Installation</td><td>Add-on service</td></tr>
+      <tr><td>Kitchen Hood Installation</td><td>Add-on service</td></tr>
+      <tr><td>3-Tier Drawer</td><td>Add-on item</td></tr>
+    </tbody>
+    <tbody data-tab="cabinet">
+      <tr><th scope="rowgroup" rowspan="2">Wall Cabinet</th><td>Standard Wall Cabinet</td><td>Standard 6 ft package</td></tr>
+      <tr><td>High Wall Cabinet</td><td>Additional high wall cabinet option</td></tr>
+    </tbody>
+    <tbody data-tab="cabinet">
+      <tr><th scope="rowgroup" rowspan="2">Tall Cabinet</th><td>Standard Height Tall Cabinet</td><td>Standard 2 ft package</td></tr>
+      <tr><td>Ceiling Height Tall Cabinet</td><td>Full-height cabinet option</td></tr>
+    </tbody>
+    <tbody data-tab="cabinet">
+      <tr><th scope="rowgroup" rowspan="2">Wardrobe</th><td>Standard Height Wardrobe</td><td>Standard 6 ft package</td></tr>
+      <tr><td>Ceiling Height Wardrobe</td><td>Full-height wardrobe option</td></tr>
+    </tbody>
+    <tbody data-tab="cabinet">
+      <tr><th scope="rowgroup" rowspan="7">Additional Cabinet Length</th><td>Base Cabinet</td><td>Additional per-foot run</td></tr>
+      <tr><td>Standard Wall Cabinet</td><td>Additional per-foot run</td></tr>
+      <tr><td>High Wall Cabinet</td><td>Additional per-foot run</td></tr>
+      <tr><td>Standard Height Tall Cabinet</td><td>Additional per-foot run</td></tr>
+      <tr><td>Ceiling Height Tall Cabinet</td><td>Additional per-foot run</td></tr>
+      <tr><td>Standard Height Wardrobe</td><td>Additional per-foot run</td></tr>
+      <tr><td>Ceiling Height Wardrobe</td><td>Additional per-foot run</td></tr>
+    </tbody>
+    <tbody data-tab="painting">
+      <tr><th scope="rowgroup" rowspan="6">Interior Painting – Walls &amp; Ceiling</th><td>Condo 2–3 Bedrooms</td><td>600–900 sq ft</td></tr>
+      <tr><td>Condo / Single-Storey Home 3–4 Bedrooms</td><td>900–1,500 sq ft</td></tr>
+      <tr><td>Large Condo / Double-Storey Home</td><td>1,500–2,200 sq ft</td></tr>
+      <tr><td>Master / Medium Bedroom</td><td>Below 400 sq ft</td></tr>
+      <tr><td>Living Room</td><td>Below 400 sq ft</td></tr>
+      <tr><td>Kitchen</td><td>Below 400 sq ft</td></tr>
+    </tbody>
+    <tbody data-tab="painting">
+      <tr><th scope="rowgroup" rowspan="2">Add-On Service</th><td>Single-Leaf Door + Frame Painting</td><td>Door and frame painting</td></tr>
+      <tr><td>Furniture / Item Relocation</td><td>Moving items before painting work</td></tr>
+    </tbody>
+    <tbody data-tab="painting">
+      <tr><th scope="rowgroup" rowspan="2">Exterior Painting – Single Storey</th><td>High-Pressure Wash Only</td><td>Paint supplied by owner</td></tr>
+      <tr><td>High-Pressure Wash + Weathershield Paint</td><td>Includes ICI Dulux Weathershield</td></tr>
+    </tbody>
+    <tbody data-tab="painting">
+      <tr><th scope="rowgroup" rowspan="2">Exterior Painting – Double Storey</th><td>High-Pressure Wash + Scaffolding</td><td>Paint supplied by owner</td></tr>
+      <tr><td>High-Pressure Wash + Weathershield Paint + Scaffolding</td><td>Includes ICI Dulux Weathershield</td></tr>
+    </tbody>
+    <tbody data-tab="ceiling">
+      <tr><th scope="rowgroup" rowspan="5">Plaster Ceiling Works</th><td>Flat Ceiling</td><td>Standard plaster ceiling work</td></tr>
+      <tr><td>L-Box</td><td>L-box ceiling design</td></tr>
+      <tr><td>Cornice Ceiling + 4K LED Light</td><td>Cornice ceiling with LED lighting</td></tr>
+      <tr><td>Normal Cornice Design</td><td>Standard cornice ceiling design</td></tr>
+      <tr><td>White Ceiling Painting</td><td>Ceiling painting in white finish</td></tr>
+    </tbody>
+    <tbody data-tab="partition">
+      <tr><th scope="rowgroup" rowspan="3">Partition Wall</th><td>Gypsum Board Partition</td><td>Painted finish</td></tr>
+      <tr><td>Soundproof Gypsum Board Partition</td><td>Soundproof partition wall</td></tr>
+      <tr><td>Glass Partition Wall</td><td>Glass wall partition</td></tr>
+    </tbody>
+    <tbody data-tab="partition">
+      <tr><th scope="rowgroup" rowspan="8">Door Type</th><td>Full Wooden Door</td><td>Aluminium frame / paint finish</td></tr>
+      <tr><td>Half Wood &amp; Glass Door</td><td>Mixed wood and glass door</td></tr>
+      <tr><td>Full Glass Door</td><td>Full glass door</td></tr>
+      <tr><td>Clear Glass Window (Static)</td><td>3 x 3 ft</td></tr>
+      <tr><td>Clear Glass Window (Static)</td><td>6 x 4 ft</td></tr>
+      <tr><td>Sliding Window</td><td>4 x 4 ft</td></tr>
+      <tr><td>Extra Frame</td><td>Additional frame work</td></tr>
+      <tr><td>Curve Arch</td><td>Curved arch opening</td></tr>
+    </tbody>
+    <tbody data-tab="plumbing">
+      <tr><th scope="rowgroup" rowspan="3">Supply + Install</th><td>Heavy Duty Items</td><td>Supply and installation service</td></tr>
+      <tr><td>Normal Items</td><td>Supply and installation service</td></tr>
+      <tr><td>Install Only</td><td>Installation service only</td></tr>
+    </tbody>
+    <tbody data-tab="plumbing">
+      <tr><th scope="rowgroup" rowspan="2">WC Flush</th><td>Supply and Install</td><td>WC flush supply and installation</td></tr>
+      <tr><td>Dismantle</td><td>Removal / dismantling service</td></tr>
+    </tbody>
+    <tbody data-tab="plumbing">
+      <tr><th scope="rowgroup" rowspan="2">Kitchen Sink</th><td>Install Only</td><td>Kitchen sink installation only</td></tr>
+      <tr><td>Supply and Install</td><td>Kitchen sink supply and installation</td></tr>
+    </tbody>
+    <tbody data-tab="plumbing">
+      <tr><th scope="rowgroup" rowspan="5">Shower Set</th><td>Standard Shower Set Install Only</td><td>Installation only</td></tr>
+      <tr><td>Supply Standard Shower Set &amp; Install</td><td>Includes supply and installation</td></tr>
+      <tr><td>Supply Rain Shower &amp; Install</td><td>Includes supply and installation</td></tr>
+      <tr><td>Install Water Heater</td><td>Water heater installation only</td></tr>
+      <tr><td>Supply Panasonic Water Heater &amp; Install</td><td>Includes supply and installation</td></tr>
+    </tbody>
+    <tbody data-tab="plumbing">
+      <tr><th scope="rowgroup" rowspan="4">Maintenance</th><td>Leaking Valve / Stopcock Repair</td><td>Rubber replacement only</td></tr>
+      <tr><td>Hack + Replace Valve + Plaster</td><td>Repair with hacking and plastering</td></tr>
+      <tr><td>Unclog Floor Trap / Sink</td><td>Unclogging service</td></tr>
+      <tr><td>Check &amp; Repair Clogged Pipe</td><td>For kitchen, floor trap, or toilet</td></tr>
+    </tbody>
+    <tbody data-tab="plumbing">
+      <tr><th scope="rowgroup" rowspan="7">Water Pump</th><td>Supply + Install Tsunami Pump 0.5 HP</td><td>Water pump supply and installation</td></tr>
+      <tr><td>Supply + Install Tsunami Pump 0.75 HP</td><td>Water pump supply and installation</td></tr>
+      <tr><td>Supply + Install Tsunami Pump 1 HP</td><td>Water pump supply and installation</td></tr>
+      <tr><td>Supply + Install Grundfos Pump 0.67 HP</td><td>Water pump supply and installation</td></tr>
+      <tr><td>Supply + Install Grundfos Pump 0.9 HP</td><td>Water pump supply and installation</td></tr>
+      <tr><td>Supply + Install Grundfos Pump 1.2 HP</td><td>Water pump supply and installation</td></tr>
+      <tr><td>Labour + Wiring</td><td>Installation labour and wiring</td></tr>
+    </tbody>
+    <tbody data-tab="plumbing">
+      <tr><th scope="rowgroup" rowspan="2">Water Tank</th><td>Supply + Install King Kong Water Tank 1000L</td><td>Water tank supply and installation</td></tr>
+      <tr><td>Labour Only</td><td>Installation labour only</td></tr>
+    </tbody>
+    <tbody data-tab="plumbing">
+      <tr><th scope="rowgroup" rowspan="3">Water Tank + Pump + Filter</th><td>Supply + Install King Kong Water Tank 1000L + Hitachi Water Pump 200W + 6-Layer Water Filter</td><td>Complete package</td></tr>
+      <tr><td>Supply + Install King Kong Water Tank 1000L + Hitachi Water Pump 250W + 6-Layer Water Filter</td><td>Complete package</td></tr>
+      <tr><td>Labour Only</td><td>Installation labour only</td></tr>
+    </tbody>
+    <tbody data-tab="grille">
+      <tr><th scope="rowgroup" rowspan="2">Nylon Invisible Grille</th><td>Cat Safety</td><td>3.5 cm spacing</td></tr>
+      <tr><td>Baby Safety</td><td>5.5 cm spacing</td></tr>
+    </tbody>
+    <tbody data-tab="grille">
+      <tr><th scope="rowgroup" rowspan="2">Teflon Invisible Grille</th><td>Cat Safety</td><td>3.5 cm spacing</td></tr>
+      <tr><td>Baby Safety</td><td>5.5 cm spacing</td></tr>
+    </tbody>
+    <tbody data-tab="panel">
+      <tr><th scope="rowgroup" rowspan="2">Fluted Wall Panel</th><td>Supply + Install</td><td>Fluted wall panel with installation</td></tr>
+      <tr><td>Install Only</td><td>Installation service only</td></tr>
+    </tbody>
+    <tbody data-tab="panel">
+      <tr><th scope="rowgroup" rowspan="2">Marble Wall Panel</th><td>Supply + Install</td><td>Marble wall panel with installation</td></tr>
+      <tr><td>Install Only</td><td>Installation service only</td></tr>
+    </tbody>
+    <tbody data-tab="panel">
+      <tr><th scope="rowgroup" rowspan="2">Wainscoting + White Paint</th><td>Supply + Install</td><td>MDF / Plywood wainscoting with white paint</td></tr>
+      <tr><td>Install Only</td><td>Installation service only</td></tr>
+    </tbody>
+    <tbody data-tab="decking">
+      <tr><th scope="rowgroup" rowspan="1">Type A</th><td>Supply + Install</td><td>Type A flooring / decking supply and installation</td></tr>
+    </tbody>
+    <tbody data-tab="decking">
+      <tr><th scope="rowgroup" rowspan="1">Type B</th><td>Supply + Install</td><td>Type B flooring / decking supply and installation</td></tr>
+    </tbody>
+    <tbody data-tab="decking">
+      <tr><th scope="rowgroup" rowspan="8">Flooring</th><td>Install Only</td><td>Installation service only</td></tr>
+      <tr><td>Levelling</td><td>Floor levelling service</td></tr>
+      <tr><td>Supply + Install SPC</td><td>SPC flooring supply and installation</td></tr>
+      <tr><td>Install Only SPC</td><td>SPC flooring installation only</td></tr>
+      <tr><td>Supply + Install Vinyl</td><td>Vinyl flooring supply and installation</td></tr>
+      <tr><td>Install Only Vinyl</td><td>Vinyl flooring installation only</td></tr>
+      <tr><td>Herringbone Design SPC</td><td>SPC flooring with herringbone pattern</td></tr>
+      <tr><td>Herringbone Design Vinyl</td><td>Vinyl flooring with herringbone pattern</td></tr>
+    </tbody>
+  </table>
+  <p class="sv-empty" hidden>No services match. Try another word.</p>
+
+  <p class="sv-note" data-tab="wiring">Note: Uses SIRIM-certified components and MS IEC 60227 wire for safe installation.</p>
+  <p class="sv-note" data-tab="cctv">Warranty Note: Customers are required to keep the CCTV box and SD card box for warranty return and claim purposes.</p>
+  </div>
+</div>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <img src="../svg/logo/encik-beku-secondary-dark.svg" alt="Encik Beku">
+        <p style="max-width:38ch">The official source for Encik Beku company information, brand identity and service resources.</p>
+      </div>
+      <div>
+        <h4>Sections</h4>
+        <ul>
+          <li><a href="about.html">Who we are</a></li>
+          <li><a href="brand.html">Our brand</a></li>
+          <li><a href="services.html">What we do</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+60189294628">+6018 929 4628</a></li>
+          <li><a href="mailto:encikbekuaircondmy@gmail.com">encikbekuaircondmy@gmail.com</a></li>
+          <li><a href="https://www.serviceaircond.my">www.serviceaircond.my</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      Encik Beku Aircond Sdn Bhd (1561739-D) · 5, Jln Bukit Badong 26/4, Hicom Industrial Estate, 40400 Shah Alam, Selangor<br>
+      Encik Beku Aircond N9 Sdn Bhd (1611987-U) · Encik Beku Aircond Selatan Sdn Bhd (1611766-A)
+    </div>
+  </div>
+</footer>
+
+<!-- Outside <main> on purpose: the single-file preview build lifts only <main>,
+     and this viewer cannot work there anyway (it copies no inline script). The
+     Preview control stays an ordinary link to the PDF, so it still works. -->
+<dialog class="cb" id="cb" aria-labelledby="cb-title">
+  <div class="cb-bar">
+    <p class="cb-title" id="cb-title" data-i18n="doc.cat">Encik Beku Service Catalogue</p>
+    <p class="cb-count tnum" aria-live="polite">Cover · 34 pages</p>
+    <a class="btn btn-ghost btn-sm on-blue" href="downloads/Encik-Beku-Service-Catalogue-2026-v1.0.pdf" download><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dl"/></svg><span data-i18n="doc.download.cat">Download catalogue</span></a>
+    <button type="button" class="cb-x" aria-label="Close catalogue"><svg class="sv-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+  </div>
+  <div class="cb-stage">
+    <!-- Photographs of typeset pages: there is no honest alt text for them, so
+         the book is hidden from screen readers. The service table on this page
+         is the same content marked up, and the PDF is one button away. -->
+    <div class="cb-book" aria-hidden="true">
+      <img class="cb-pg cb-l" alt="" decoding="async">
+      <img class="cb-pg cb-r" alt="" decoding="async">
+      <div class="cb-leaf"><img class="cb-face cb-front" alt="" decoding="async"><img class="cb-face cb-back" alt="" decoding="async"></div>
+    </div>
+  </div>
+  <div class="cb-nav">
+    <button type="button" class="btn btn-ghost btn-sm on-blue" data-step="-1">Previous</button>
+    <button type="button" class="btn btn-ghost btn-sm on-blue" data-step="1">Next</button>
+  </div>
+</dialog>
+
+<script>
+(function () {
+  var groups = [].slice.call(document.querySelector('.sv-table').tBodies);
+  var tabs = [].slice.call(document.querySelectorAll('.sv-tabs button'));
+  var notes = [].slice.call(document.querySelectorAll('.sv-note'));
+  var q = document.getElementById('sv-q'), type = document.getElementById('sv-type');
+  var empty = document.querySelector('.sv-empty');
+  var hero = document.querySelector('.sv-hero img'), heroTitle = document.querySelector('.sv-hero-title');
+  var tab = 'aircond';
+
+  function inTab(el) { return el.dataset.tab === tab; }
+  function catName(g) { return g.querySelector('th').textContent.trim(); }
+
+  function fillTypes() {
+    type.length = 1;
+    groups.filter(inTab).forEach(function (g) { type.add(new Option(catName(g), catName(g))); });
+  }
+
+  // The category cell spans its group with rowspan, so when rows are filtered
+  // out it moves to the first row still showing and its span is recounted.
+  function render() {
+    var term = q.value.trim().toLowerCase(), shown = 0;
+    groups.forEach(function (g) {
+      var th = g.querySelector('th'), name = catName(g);
+      var rows = [].filter.call(g.rows, function (r) {
+        return inTab(g) && (!type.value || type.value === name) &&
+          (name + ' ' + r.textContent).toLowerCase().indexOf(term) !== -1;
+      });
+      [].forEach.call(g.rows, function (r) { r.hidden = rows.indexOf(r) === -1; });
+      g.hidden = !rows.length;
+      if (rows.length) { rows[0].insertBefore(th, rows[0].firstChild); th.rowSpan = rows.length; }
+      shown += rows.length;
+    });
+    notes.forEach(function (n) { n.hidden = !inTab(n); });
+    empty.hidden = shown > 0;
+  }
+
+  // The new photo fades up over the outgoing one, which the click handler parks on
+  // the band behind it. Fading the img out first cannot work: that change animates
+  // too, so it never reaches 0 before the new photo arrives.
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+  hero.addEventListener('load', function () {
+    if (hero.animate && !still.matches) hero.animate([{ opacity: 0 }, { opacity: 1 }], 400);
+  });
+
+  tabs.forEach(function (b) {
+    b.addEventListener('click', function () {
+      tabs.forEach(function (t) { t.setAttribute('aria-pressed', t === b); });
+      tab = b.dataset.tab;
+      // Hold the outgoing photo behind the img so the new one fades in over it.
+      hero.parentNode.style.backgroundImage = 'url("' + hero.src + '")';
+      hero.src = 'img/services-hero-' + tab + '.jpg';
+      heroTitle.textContent = b.textContent.trim();
+      fillTypes();
+      render();
+    });
+  });
+  q.addEventListener('input', render);
+  type.addEventListener('change', render);
+  fillTypes();
+  render();
+})();
+
+/* ── Catalogue viewer ─────────────────────────────────────────────
+   Its own IIFE: a fault in the book must not take the table with it.
+   `page` is the page on the RIGHT of the spread, so the book opens and
+   closes the way a real one does — the cover alone on the right, spreads
+   2-3 … 32-33, then page 34 alone on the left. */
+(function () {
+  var opener = document.getElementById('cb-open'), dlg = document.getElementById('cb');
+  if (!opener || !dlg || !dlg.showModal) return;   // no <dialog>: the link opens the PDF instead
+
+  var PAGES = 34, DUR = 420;
+  var book = dlg.querySelector('.cb-book');
+  var L = dlg.querySelector('.cb-l'), R = dlg.querySelector('.cb-r');
+  var leaf = dlg.querySelector('.cb-leaf');
+  var front = dlg.querySelector('.cb-front'), back = dlg.querySelector('.cb-back');
+  var count = dlg.querySelector('.cb-count');
+  var solo = window.matchMedia('(max-width: 760px)');
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var page = 1, busy = false;
+
+  function url(n) { return 'img/catalogue/p' + (n < 10 ? '0' : '') + n + '.jpg'; }
+  function has(n) { return n >= 1 && n <= PAGES; }
+  function step() { return solo.matches ? 1 : 2; }
+  // One past the last page is a real state on a spread: it is the back of the
+  // final sheet, which leaves page 34 alone on the left.
+  function last() { return solo.matches ? PAGES : (PAGES % 2 ? PAGES : PAGES + 1); }
+
+  // visibility, not display or hidden: an empty slot has to keep its half of
+  // the book, or the cover would stretch across the whole spread. A page that
+  // has not arrived yet shows as paper: an <img> whose src has changed keeps
+  // painting the OLD picture until the new one decodes, and that is what put a
+  // spread on screen that does not exist in the book - page 12 beside page 11.
+  function put(img, n) {
+    if (!has(n)) { img.style.visibility = 'hidden'; return; }
+    if (img.getAttribute('src') !== url(n)) img.setAttribute('src', url(n));
+    if (img.complete) { img.style.visibility = 'visible'; return; }
+    img.style.visibility = 'hidden';
+    img.onload = function () { img.style.visibility = 'visible'; };
+  }
+
+  // Pages near the spread, kept in a map rather than loaded and forgotten: an
+  // Image nothing holds can be collected mid-download, which cancels the fetch.
+  var held = {};
+  function hold(n) {
+    if (!held[n]) { held[n] = new Image(); held[n].src = url(n); }
+    return held[n];
+  }
+  // Hold the turn until the pages it needs can be drawn - but only briefly. On a
+  // slow line the reader would otherwise click and watch nothing happen; better
+  // to turn on time and let a page arrive as paper and fill in a moment later.
+  function ready(ns, then) {
+    ns = ns.filter(has);
+    var left = ns.length, fired = false;
+    var go = function () { if (!fired) { fired = true; then(); } };
+    if (!left) return go();
+    setTimeout(go, 150);
+    ns.forEach(function (n) {
+      var im = hold(n), done = function () { if (!--left) go(); };
+      if (im.decode) im.decode().then(done, done);
+      else if (im.complete) done();
+      else { im.onload = done; im.onerror = done; }
+    });
+  }
+
+  function paint() {
+    if (!solo.matches && page % 2 === 0) page--;    // a spread always starts on an odd page
+    if (page > last()) page = last();
+    var l = solo.matches ? page : page - 1, r = solo.matches ? 0 : page;
+    put(L, l); put(R, r);
+    count.textContent = solo.matches ? 'Page ' + page + ' of ' + PAGES
+      : !has(l) ? 'Cover · ' + PAGES + ' pages'
+      : !has(r) ? 'Page ' + l + ' of ' + PAGES
+      : 'Pages ' + l + '–' + r + ' of ' + PAGES;
+    dlg.querySelector('[data-step="-1"]').disabled = page - step() < 1;
+    dlg.querySelector('[data-step="1"]').disabled = page + step() > last();
+    // Warm the spread either side - a reader turns back as well - and drop the
+    // rest, so 34 full-page scans never pile up as decoded bitmaps.
+    var keep = {};
+    [l, r, page - step(), page - step() + 1, page + step(), page + step() + 1].forEach(function (n) {
+      if (has(n)) { keep[n] = 1; hold(n); }
+    });
+    for (var k in held) if (!keep[k]) delete held[k];
+  }
+
+  function turn(d) {
+    // A click during a turn is dropped, not queued: queueing them made the book
+    // carry on flipping after the reader had stopped clicking, landing somewhere
+    // they never asked for. One click, one turn.
+    if (busy) return;
+    var to = page + d * step(), fwd = d > 0;
+    if (to < 1 || to > last()) return;
+    if (still.matches) { page = to; paint(); return; }   // opt out of the turn, don't shorten it
+
+    busy = true;
+    // The leaf carries the page it lifts on its front and that sheet's reverse
+    // on its back; the page it uncovers is placed underneath before it moves.
+    var f = solo.matches ? (fwd ? page : to) : (fwd ? page : page - 1);
+    var b = solo.matches ? 0 : (fwd ? to - 1 : to);
+    var reveal = solo.matches ? (fwd ? to : 0) : (fwd ? to : to - 1);
+
+    ready([f, b, reveal], function () {
+    put(front, f); if (!solo.matches) put(back, b);
+    leaf.classList.toggle('cb-rev', !fwd && !solo.matches);
+
+    var from = fwd ? 0 : -180, into = fwd ? -180 : 0;
+    if (!fwd && !solo.matches) { from = 0; into = 180; }   // reverse hinges on the other edge
+    leaf.style.transform = 'rotateY(' + from + 'deg)';
+    leaf.style.visibility = 'visible';
+    requestAnimationFrame(function () {
+      // Only once the leaf is demonstrably covering it: swap in the same frame
+      // and the page underneath flashes for one frame before it is hidden.
+      if (has(reveal)) put(fwd && !solo.matches ? R : L, reveal);
+      leaf.animate([{ transform: 'rotateY(' + from + 'deg)' }, { transform: 'rotateY(' + into + 'deg)' }],
+        { duration: DUR, easing: 'cubic-bezier(.4,0,.2,1)' }).onfinish = function () {
+          page = to;
+          paint();                                  // the slots now match the landed leaf
+          leaf.style.visibility = 'hidden';
+          leaf.style.transform = '';
+          busy = false;
+        };
+    });
+    });
+  }
+
+  // One handler for both: a separate click listener would fire after a swipe
+  // and turn two pages at once.
+  var x0 = null;
+  book.addEventListener('pointerdown', function (e) { x0 = e.clientX; });
+  book.addEventListener('pointercancel', function () { x0 = null; });
+  book.addEventListener('pointerup', function (e) {
+    if (x0 === null) return;
+    var dx = e.clientX - x0, r = book.getBoundingClientRect();
+    x0 = null;
+    if (Math.abs(dx) > 40) turn(dx < 0 ? 1 : -1);
+    else turn(e.clientX < r.left + r.width / 2 ? -1 : 1);
+  });
+
+  dlg.addEventListener('click', function (e) {
+    if (e.target === dlg) return dlg.close();                       // the surround
+    if (e.target.closest('.cb-x')) return dlg.close();
+    var b = e.target.closest('[data-step]');
+    if (b) turn(Number(b.dataset.step));
+  });
+  dlg.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') turn(1);
+    else if (e.key === 'ArrowLeft') turn(-1);
+    else if (e.key === 'Home') { page = 1; paint(); }
+    else if (e.key === 'End') { page = last(); paint(); }
+    else return;
+    e.preventDefault();
+  });
+  solo.addEventListener('change', paint);          // the spread re-forms around the page in view
+
+  opener.addEventListener('click', function (e) {
+    e.preventDefault();
+    page = 1; busy = false;
+    leaf.style.visibility = 'hidden';
+    paint();
+    dlg.showModal();
+    document.documentElement.style.overflow = 'hidden';   // showModal does not lock the page
+  });
+  dlg.addEventListener('close', function () { document.documentElement.style.overflow = ''; });
+})();
+</script>
+<script src="anim.js?v=mu4zmonw"></script>
+<script src="i18n.js"></script>
+</body>
+</html>
